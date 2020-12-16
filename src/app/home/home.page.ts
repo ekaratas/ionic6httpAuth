@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
+
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-home',
@@ -7,6 +11,19 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private router:Router) {}
+
+
+  async removeItem(item) {
+    await Storage.remove({ key: item });
+  }
+
+  logout()
+  {
+
+    this.removeItem('user_ionichttpAuth');
+    this.router.navigateByUrl('/login');
+
+  }
 
 }
